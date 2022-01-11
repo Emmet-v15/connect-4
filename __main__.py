@@ -1,68 +1,51 @@
+from connect4 import Board
+import pygame
 
-class Board():
+pygame.init()
 
-    def __init__(self, row, col):
-        self.board = []
-        for i in range(row):
-            _col = []
-            for i in range(col):
-                _col.append(".")
-            self.board.append(_col)
+screen = pygame.display.set_mode([500, 500])
 
-        self.freespaces = []
-        for i in range(col):
-            self.freespaces.append(row-1)
+running = True
+while running:
 
-    def printBoard(self):
-        print("   ", end='')
-        for i in range(len(self.board[0])):
-            print(str(i+1) + " ", end='')
-        print()
-        i = 0
-        for y in self.board:
-            i += 1
-            print(str(i) + "| ", end='')
-            for x in y:
-                print(x + " ", end='')
-            print()
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
 
-    def getFreeSlot(self, col):
-        if col < len(self.board[0]):
-            return self.freespaces[col]
+    screen.fill((18, 18, 18))
+    s = pygame.Surface((200,200))  # the size of your rect
+    s.set_alpha(28)                # alpha level
+    s.fill((255,255,255))           # this fills the entire surface
+    screen.blit(s, (100,100))    # (0,0) are the top-left coordinates
+    pygame.display.flip()
 
-    def claimSlot(self, row, col, playerid):
-        self.board[row][col] = playerId
-        if self.freespaces == 0:
-            return
-        self.freespaces[col] -= 1
-
-    def checkForWinner(self, row, col):
-        for i in self.board[col]:
-            print(self.board[])
-        return None
+pygame.quit()
 
 
-if __name__ == "__main__":
-    board = Board(9, 9)
+# if __name__ == "__main__":
+#     board = new Board(9, 9)
 
-    board.printBoard()
+#     players = ["R", "G"]
+#     winner = None
 
-    players = ["R", "G"]
-    winner = None
-
-    while not winner:
-        for playerId in players:
-            print("Player", playerId + "'s Turn to slot a disc:")
-            board.printBoard()
-            col = 0
-            row = 0
-            while True:
-                while not col:
-                    col = input("SELECT COLUMN (1-6)#> ")
-                col = int(col)
-                row = board.getFreeSlot(col)
-                if row != "full":
-                    break
-            board.claimSlot(row, col, playerId)
-            if board.checkForWinner(row, col):
-                winner = playerId
+#     while not winner:
+#         for playerId in players:
+#             print("Player", playerId + "'s Turn to slot a disc:")
+#             board.printBoard()
+#             col = 0
+#             row = 0
+#             while True:
+#                 while not col:
+#                     col = input("SELECT COLUMN (1-6)#> ")
+#                 col = int(col)-1
+#                 row = board.getFreeSlot(col)
+#                 if row != None:
+#                     break
+#                 print("Column full, retry")
+#                 col = None
+#             board.claimSlot(row, col, playerId)
+#             if board.checkForWinner(row, col):
+#                 winner = playerId
+#                 break
+#     board.printBoard()
+#     print(playerId, "won!")
