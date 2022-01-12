@@ -1,9 +1,28 @@
 from connect4 import Board
 import pygame
 
+
+def drawAlphaRect(surface, size, pos, alpha, rgb=None):
+    # precise
+
+    s = pygame.Surface(size, pygame.SRCALPHA)
+    if rgb == None:
+        s.fill((255, 255, 255, alpha))
+    else:
+        s.fill((*rgb, alpha))
+    surface.blit(s, pos)
+
+    # faster
+    # rect = pygame.Surface(size)
+    # rect.set_alpha(alpha)
+    # rect.fill((255, 255, 255))
+    # surface.blit(rect, pos)
+
+
 pygame.init()
 
-screen = pygame.display.set_mode([500, 500])
+win_size = [500, 500]
+screen = pygame.display.set_mode(win_size)
 
 running = True
 while running:
@@ -11,16 +30,24 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1:
+                event.pos
 
     screen.fill((18, 18, 18))
-    s = pygame.Surface((200,200))  # the size of your rect
-    s.set_alpha(28)                # alpha level
-    s.fill((255,255,255))           # this fills the entire surface
-    screen.blit(s, (100,100))    # (0,0) are the top-left coordinates
+
+    for x in range(7):
+        for y in range(7):
+            if y == 1:
+                drawAlphaRect(screen, [win_size[0]/8, win_size[1]/8],
+                              [x*win_size[0]/7 + 5, y*win_size[1]/7 + 5], 28)
+            else:
+                drawAlphaRect(screen, [win_size[0]/8, win_size[1]/8],
+                              [x*win_size[0]/7 + 5, y*win_size[1]/7 + 5], 28)
+
     pygame.display.flip()
 
 pygame.quit()
-
 
 # if __name__ == "__main__":
 #     board = new Board(9, 9)
