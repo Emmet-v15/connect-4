@@ -1,5 +1,6 @@
 from connect4 import Board
 import pygame
+from pygame import gfxdraw
 
 
 def drawAlphaRect(surface, size, pos, alpha, rgb=None):
@@ -17,6 +18,17 @@ def drawAlphaRect(surface, size, pos, alpha, rgb=None):
     # rect.set_alpha(alpha)
     # rect.fill((255, 255, 255))
     # surface.blit(rect, pos)
+
+
+def drawAlphaCircle(surface, pos, radius, color=None):
+    if color != None:
+
+        gfxdraw.aacircle(surface, *pos, radius, (255, 255, 255))
+        gfxdraw.filled_circle(surface, *pos, radius, (255, 255, 255))
+    else:
+        gfxdraw.aacircle(surface, *pos, radius, (255, 255, 255))
+        gfxdraw.filled_circle(
+            surface, *pos, radius, (255, 255, 255))
 
 
 pygame.init()
@@ -38,12 +50,12 @@ while running:
 
     for x in range(7):
         for y in range(7):
-            if y == 1:
+            if y == 0:
                 drawAlphaRect(screen, [win_size[0]/8, win_size[1]/8],
-                              [x*win_size[0]/7 + 5, y*win_size[1]/7 + 5], 28)
+                              [x*win_size[0]/7 + 5, y*win_size[1]/7 + 5], 50)
             else:
-                drawAlphaRect(screen, [win_size[0]/8, win_size[1]/8],
-                              [x*win_size[0]/7 + 5, y*win_size[1]/7 + 5], 28)
+                drawAlphaCircle(screen, [round(x*win_size[0]/7) + 5 + round(win_size[0]/16), round(y*win_size[1]/7) + 5 + round(win_size[0]/16)], round(win_size[0]/16),
+                                28)
 
     pygame.display.flip()
 
